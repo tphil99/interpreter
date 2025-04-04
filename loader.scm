@@ -15,3 +15,5 @@
 	       "types/primitive.scm"
 	       "types/environment.scm")))
   (map load files))
+
+(driver::loop)

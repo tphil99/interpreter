@@ -7,7 +7,7 @@
   (let ((P (Forms::If::_if-predicate 𝘌))
 	(C (Forms::If::_if-consequent 𝘌))
 	(A (Forms::If::_if-alternative 𝘌)))
-  (if (true? (Eval::eval P ε))
+  (if (Eval::eval P ε)
       (Eval::eval C ε)
       (Eval::eval A ε))))
 

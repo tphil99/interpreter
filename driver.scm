@@ -14,5 +14,5 @@
 (define (Driver:::print obj)
   (newline) (display "# ") (newline)
   (if (Structures::Closure::p obj)
-      (display (list 'compound (procedure-parameters obj) (procedure-body obj) '<procedure-env>))
+      (display (list 'compound (Structures::Closure::parameters obj) (Structures::Closure::body obj) '<procedure-env>))
       (display obj)))
