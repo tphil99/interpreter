@@ -1,0 +1,23 @@
+(define (Exec::Forms::Combination:::no-operands? ops) (null? ops))
+(define (Exec::Forms::Combination:::first-operand ops) (car ops))
+(define (Exec::Forms::Combination:::rest-operands ops) (cdr ops))
+
+(define (Exec::Forms::Combination::p 𝘌) (pair? 𝘌))
+(define (Exec::Forms::Combination::operator 𝘌) (car 𝘌))
+(define (Exec::Forms::Combination::operands 𝘌) (cdr 𝘌))
+(define (Exec::Forms::Combination::list-of-values 𝔅 ε)
+  (if (Exec::Forms::Combination:::no-operands? 𝔅) '()
+      (cons (Eval::eval (Exec::Forms::Combination:::first-operand 𝔅) ε)
+            (Exec::Forms::Combination::list-of-values (Exec::Forms::Combination:::rest-operands 𝔅) ε))))
+
+;; primitive 𝔓 ⇒ (𝔓 𝒜) | _ ⇝ ~(apply-primitive-procedure 𝔓 𝒜)~ 
+;; closure 𝔓 = (𝒫 𝔅 𝙴) | _ ⇒ (𝔓 𝒜) ⇝ 𝔅 | (𝒫~𝒜, 𝙴)
+(define (Exec::Forms::Combination::apply 𝔓 𝒜)
+  (cond ((Primitive::p 𝔓) (Primitive::apply 𝔓 𝒜))
+        ((Structures::Closure::p 𝔓)
+	 (let* ((𝔅 (Structures::Closure::body 𝔓))
+	       (𝒫 (Structures::Closure::parameters 𝔓))
+	       (ε (Structures::Closure::environment 𝔓))
+	       (ε (Structures::Environment::extend (Structures::Frame::make 𝒫 𝒜) ε)))
+	     (Forms::Begin::eval-sequence 𝔅 ε)))
+        (else (error "Unknown procedure type: APPLY" 𝔓))))
