@@ -1,0 +1,8 @@
+* Usage Guide
+
+1. Download a working version of mit-scheme (macos: ~brew install mit-scheme~)
+2. In the directory containing this project's code, launch ~mit-scheme~
+3. At the scheme REPL, run ~(load "loader.scm")~, you should see the prompt ~>>~
+4. Enter scheme code, such as by copying and pasting the code in ~example.scm~
+
+Further code that you enter will be evaluated by the embedded [[https://en.wikipedia.org/wiki/Meta-circular_evaluator][meta-circular evaluator]]
